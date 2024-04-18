@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const IssueItem: FC<Props> = ({ issue }) => {
-  const { number, state, title, user, comments } = issue;
+  const { number, state, title, user, comments, labels } = issue;
   const { login, avatar_url } = user;
   const navigate = useNavigate();
   const queyClient = useQueryClient();
@@ -51,6 +51,21 @@ export const IssueItem: FC<Props> = ({ issue }) => {
           <span className="issue-subinfo">
             #{number} opened 2 days ago by{' '}
             <span className="fw-bold">{login}</span>
+            <div>
+              {labels.map((label) => (
+                <span
+                  key={label.id}
+                  className="badge rounded-pill m-1"
+                  style={{
+                    border: `2px solid #${label.color}`,
+                    backgroundColor: `#${label.color}`,
+                    color: 'white',
+                  }}
+                >
+                  {label.name}
+                </span>
+              ))}
+            </div>
           </span>
         </div>
         <div className="d-flex align-items-center">
