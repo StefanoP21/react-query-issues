@@ -42,9 +42,9 @@ export const IssueItem: FC<Props> = ({ issue }) => {
     >
       <div className="card-body d-flex align-items-center">
         {state === State.Open ? (
-          <FiCheckCircle size={30} color="green" />
-        ) : (
           <FiInfo size={30} color="red" />
+        ) : (
+          <FiCheckCircle size={30} color="green" />
         )}
         <div className="d-flex flex-column flex-fill px-2">
           <span>{title}</span>
