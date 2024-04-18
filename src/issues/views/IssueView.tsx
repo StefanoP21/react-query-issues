@@ -6,7 +6,7 @@ import { LoadingIcon } from '../../shared/components/LoadingIcon';
 export const IssueView = () => {
   const params = useParams();
   const { id = '0' } = params;
-  const issueQuery = useIssue(parseInt(id, 10));
+  const { issueQuery, commentsQuery } = useIssue(parseInt(id, 10));
 
   if (issueQuery.isLoading) return <LoadingIcon />;
 
@@ -19,6 +19,13 @@ export const IssueView = () => {
       </div>
 
       {issueQuery.data && <IssueComment issue={issueQuery.data} />}
+
+      {commentsQuery.isLoading && <LoadingIcon />}
+
+      {commentsQuery.data &&
+        commentsQuery.data.map((comment) => (
+          <IssueComment key={comment.id} issue={comment} />
+        ))}
     </div>
   );
 };
