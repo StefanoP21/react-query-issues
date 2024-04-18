@@ -4,13 +4,14 @@ import { useQueryClient } from '@tanstack/react-query';
 import { FiInfo, FiMessageSquare, FiCheckCircle } from 'react-icons/fi';
 import { Issue, State } from '../interfaces';
 import { getIssueById, getIssueComments } from '../hooks/useIssue';
+import { timeSince } from '../../helpers';
 
 interface Props {
   issue: Issue;
 }
 
 export const IssueItem: FC<Props> = ({ issue }) => {
-  const { number, state, title, user, comments, labels } = issue;
+  const { number, state, title, user, comments, labels, created_at } = issue;
   const { login, avatar_url } = user;
   const navigate = useNavigate();
   const queyClient = useQueryClient();
@@ -49,7 +50,7 @@ export const IssueItem: FC<Props> = ({ issue }) => {
         <div className="d-flex flex-column flex-fill px-2">
           <span>{title}</span>
           <span className="issue-subinfo">
-            #{number} opened 2 days ago by{' '}
+            #{number} opened {timeSince(created_at)} ago by{' '}
             <span className="fw-bold">{login}</span>
             <div>
               {labels.map((label) => (
@@ -60,6 +61,7 @@ export const IssueItem: FC<Props> = ({ issue }) => {
                     border: `2px solid #${label.color}`,
                     backgroundColor: `#${label.color}`,
                     color: 'white',
+                    fontSize: '0.7rem',
                   }}
                 >
                   {label.name}
