@@ -28,7 +28,9 @@ export const IssueItem: FC<Props> = ({ issue }) => {
   };
 
   const presetData = () => {
-    queyClient.setQueryData(['issue', issue.number], issue);
+    queyClient.setQueryData(['issue', issue.number], issue, {
+      updatedAt: new Date().getTime() + 10000,
+    });
   };
 
   return (
