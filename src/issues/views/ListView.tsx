@@ -23,11 +23,19 @@ export const ListView = () => {
           <LoadingIcon />
         ) : (
           <IssueList
-            issues={issuesQuery.data || []}
+            issues={issuesQuery.data?.pages.flat() || []}
             state={state}
             onStateChanged={(newState) => setstate(newState)}
           />
         )}
+
+        <button
+          className="btn btn-outline-primary mt-2"
+          onClick={() => issuesQuery.fetchNextPage()}
+          disabled={!issuesQuery.hasNextPage || issuesQuery.isFetchingNextPage}
+        >
+          Load More
+        </button>
       </div>
 
       <div className="col-4">
